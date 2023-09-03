@@ -1,9 +1,10 @@
 package config
 
 import (
-	"github.com/joho/godotenv"
 	"log"
 	"os"
+
+	"github.com/joho/godotenv"
 )
 
 // Config is a config
@@ -18,6 +19,10 @@ type Config struct {
 
 // ReadEnv Read reads config from environment.
 func ReadEnv() Config {
+	// loads values from .env into the system
+	if err := godotenv.Load("dev.env"); err != nil {
+		log.Print("No .env file found")
+	}
 	// loads values from .env into the system
 	if err := godotenv.Load(); err != nil {
 		log.Print("No .env file found")

@@ -1,4 +1,4 @@
-module s1-tts-restapi
+module github.com/s1Sharp/s1-tts-restapi
 
 go 1.20
 

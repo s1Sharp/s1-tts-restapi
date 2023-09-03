@@ -2,9 +2,9 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/s1Sharp/s1-tts-restapi/internal/models"
+	"github.com/s1Sharp/s1-tts-restapi/service"
 	"net/http"
-	"s1-tts-restapi/internal/models"
-	"s1-tts-restapi/service"
 	"strconv"
 	"strings"
 )

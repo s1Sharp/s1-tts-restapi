@@ -4,10 +4,11 @@ import (
 	"context"
 	"errors"
 	"log"
-	"s1-tts-restapi/internal/models"
-	"s1-tts-restapi/internal/storage"
-	"s1-tts-restapi/utils"
 	"time"
+
+	"github.com/s1Sharp/s1-tts-restapi/internal/models"
+	"github.com/s1Sharp/s1-tts-restapi/internal/storage"
+	"github.com/s1Sharp/s1-tts-restapi/utils"
 
 	"github.com/google/uuid"
 	"go.mongodb.org/mongo-driver/bson"

@@ -4,7 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"
-	"s1-tts-restapi/internal/models"
+	"github.com/s1Sharp/s1-tts-restapi/internal/models"
 )
 
 func DeserializeTasks() gin.HandlerFunc {

@@ -2,13 +2,13 @@ package main
 
 import (
 	"context"
+	"github.com/s1Sharp/s1-tts-restapi/controller"
+	"github.com/s1Sharp/s1-tts-restapi/internal/config"
+	"github.com/s1Sharp/s1-tts-restapi/internal/storage"
+	"github.com/s1Sharp/s1-tts-restapi/routes"
+	"github.com/s1Sharp/s1-tts-restapi/service"
 	"log"
 	"net/http"
-	"s1-tts-restapi/controller"
-	"s1-tts-restapi/internal/config"
-	"s1-tts-restapi/internal/storage"
-	"s1-tts-restapi/routes"
-	"s1-tts-restapi/service"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"

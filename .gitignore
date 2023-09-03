@@ -1,2 +1,4 @@
 .idea/
+.vscode/
 app.env
+dev.env

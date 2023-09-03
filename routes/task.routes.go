@@ -1,8 +1,8 @@
 package routes
 
 import (
-	"s1-tts-restapi/controller"
-	"s1-tts-restapi/middleware"
+	"github.com/s1Sharp/s1-tts-restapi/controller"
+	"github.com/s1Sharp/s1-tts-restapi/middleware"
 
 	"github.com/gin-gonic/gin"
 )
