@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"log"
 )
 
 type MongoStorage struct {
@@ -34,8 +33,8 @@ func NewMongoStorage(uri string, ctx context.Context) (ms MongoStorage) {
 		log.Fatal(err)
 	}
 
-	taskCollection := client.Database("s1_tts").Collection("users")
-	userCollection := client.Database("s1_tts").Collection("tasks")
+	taskCollection := client.Database("s1_tts").Collection("tasks")
+	userCollection := client.Database("s1_tts").Collection("users")
 	ms = MongoStorage{
 		taskCollection: taskCollection,
 		userCollection: userCollection,

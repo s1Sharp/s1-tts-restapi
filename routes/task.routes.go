@@ -1,10 +1,10 @@
 package routes
 
 import (
+	"github.com/gin-gonic/gin"
+
 	"github.com/s1Sharp/s1-tts-restapi/controller"
 	"github.com/s1Sharp/s1-tts-restapi/middleware"
-
-	"github.com/gin-gonic/gin"
 )
 
 type TaskRouteController struct {

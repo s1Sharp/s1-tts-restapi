@@ -1,29 +1,25 @@
 package controller
 
 import (
-	"github.com/gin-gonic/gin"
-	"github.com/s1Sharp/s1-tts-restapi/internal/models"
-	"github.com/s1Sharp/s1-tts-restapi/service"
 	"net/http"
 	"strconv"
 	"strings"
+
+	"github.com/gin-gonic/gin"
+
+	"github.com/s1Sharp/s1-tts-restapi/internal/models"
+	"github.com/s1Sharp/s1-tts-restapi/service"
 )
 
-type TaskController interface {
-	CreateTask(ctx *gin.Context)
-	TaskById(ctx *gin.Context)
-	GetUserTasks(ctx *gin.Context)
-}
-
-type TaskControllerImpl struct {
+type TaskController struct {
 	postService service.TaskService
 }
 
 func NewTaskController(taskService service.TaskService) TaskController {
-	return &TaskControllerImpl{taskService}
+	return TaskController{taskService}
 }
 
-func (pc *TaskControllerImpl) CreateTask(ctx *gin.Context) {
+func (pc *TaskController) CreateTask(ctx *gin.Context) {
 	var task *models.CreateTaskScheme
 
 	if err := ctx.ShouldBindJSON(&task); err != nil {
@@ -46,7 +42,7 @@ func (pc *TaskControllerImpl) CreateTask(ctx *gin.Context) {
 	ctx.JSON(http.StatusCreated, gin.H{"status": "success", "data": gin.H{"task_id": newTask.ID}})
 }
 
-func (pc *TaskControllerImpl) TaskById(ctx *gin.Context) {
+func (pc *TaskController) TaskById(ctx *gin.Context) {
 	taskId := ctx.Param("id")
 
 	task, err := pc.postService.TaskById(taskId)
@@ -59,7 +55,7 @@ func (pc *TaskControllerImpl) TaskById(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{"status": "success", "data": task})
 }
 
-func (pc *TaskControllerImpl) GetUserTasks(ctx *gin.Context) {
+func (pc *TaskController) GetUserTasks(ctx *gin.Context) {
 	var user, ok = ctx.GetQuery("user")
 	if !ok {
 		ctx.JSON(http.StatusBadRequest, gin.H{"status": "fail", "message": "user required"})

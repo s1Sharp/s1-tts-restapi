@@ -2,13 +2,13 @@ package main
 
 import (
 	"context"
+	"net/http"
+
 	"github.com/s1Sharp/s1-tts-restapi/controller"
 	"github.com/s1Sharp/s1-tts-restapi/internal/config"
 	"github.com/s1Sharp/s1-tts-restapi/internal/storage"
 	"github.com/s1Sharp/s1-tts-restapi/routes"
 	"github.com/s1Sharp/s1-tts-restapi/service"
-	"log"
-	"net/http"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -18,6 +18,14 @@ type ttsServer struct {
 	taskService         *service.TaskService
 	TaskController      *controller.TaskController
 	TaskRouteController *routes.TaskRouteController
+
+	userService         *service.UserService
+	UserController      *controller.UserController
+	UserRouteController *routes.UserRouteController
+
+	authService         *service.AuthService
+	AuthController      *controller.AuthController
+	AuthRouteController *routes.AuthRouteController
 
 	mongoStorage *storage.MongoStorage
 	redisStorage *storage.RedisStorage
@@ -57,6 +65,8 @@ func (s ttsServer) Run() error {
 
 	router := s.server.Group("/api/v1")
 	s.TaskRouteController.TaskRoute(router)
+	s.UserRouteController.UserRoute(router, *s.userService, *s.cfg)
+	s.AuthRouteController.AuthRoute(router, *s.userService, *s.cfg)
 
 	defer func() {
 		// db disconnected

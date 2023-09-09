@@ -3,7 +3,6 @@ package storage
 import (
 	"context"
 	"github.com/go-redis/redis"
-	"log"
 )
 
 type RedisStorage struct {

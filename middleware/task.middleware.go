@@ -1,10 +1,16 @@
 package middleware
 
 import (
-	"github.com/gin-gonic/gin"
-	"log"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
+
+	"github.com/s1Sharp/s1-tts-restapi/internal/logger"
 	"github.com/s1Sharp/s1-tts-restapi/internal/models"
+)
+
+var (
+	log = logger.GetLogger()
 )
 
 func DeserializeTasks() gin.HandlerFunc {
