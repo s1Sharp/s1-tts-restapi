@@ -28,8 +28,8 @@ type SignInInput struct {
 	Password string `json:"password" bson:"password" binding:"required"`
 }
 
-// 👈 DBResponse struct
-type DBResponse struct {
+// 👈 DBUserResponse struct
+type DBUserResponse struct {
 	ID                 primitive.ObjectID `json:"id" bson:"_id"`
 	Name               string             `json:"name" bson:"name"`
 	Email              string             `json:"email" bson:"email"`
@@ -80,7 +80,7 @@ type ResetPasswordInput struct {
 	PasswordConfirm string `json:"passwordConfirm,omitempty" bson:"passwordConfirm,omitempty"`
 }
 
-func FilteredResponse(user *DBResponse) UserResponse {
+func FilteredResponse(user *DBUserResponse) UserResponse {
 	return UserResponse{
 		ID:        user.ID,
 		Email:     user.Email,

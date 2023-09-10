@@ -11,3 +11,5 @@ RESOURCE	HTTP    METHOD	ROUTE	        DESCRIPTION
 * tasks       POST    /api/v1/tasks/
 
 snap install golangci-lint
+
+go get github.com/golang/mock/mockgen@latest

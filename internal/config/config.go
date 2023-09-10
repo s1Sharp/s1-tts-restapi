@@ -137,9 +137,3 @@ func ReadEnv() Config {
 	}
 	return config
 }
-
-//EmailFrom string
-//SMTPPass  string
-//SMTPUser  string
-//SMTPHost  string
-//SMTPPort  string

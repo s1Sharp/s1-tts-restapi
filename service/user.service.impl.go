@@ -25,17 +25,17 @@ func NewUserServiceImpl(storage *storage.MongoStorage, ctx context.Context) User
 	return &UserServiceImpl{storage, ctx}
 }
 
-func (us *UserServiceImpl) FindUserById(id string) (*models.DBResponse, error) {
+func (us *UserServiceImpl) FindUserById(id string) (*models.DBUserResponse, error) {
 	oid, _ := primitive.ObjectIDFromHex(id)
 
-	var user *models.DBResponse
+	var user *models.DBUserResponse
 
 	query := bson.M{"_id": oid}
 	err := us.mongoStorage.UserCollection().FindOne(us.ctx, query).Decode(&user)
 
 	if err != nil {
 		if err == mongo.ErrNoDocuments {
-			return &models.DBResponse{}, err
+			return &models.DBUserResponse{}, err
 		}
 		return nil, err
 	}
@@ -43,8 +43,8 @@ func (us *UserServiceImpl) FindUserById(id string) (*models.DBResponse, error) {
 	return user, nil
 }
 
-func (us *UserServiceImpl) FindUserByEmail(email string) (*models.DBResponse, error) {
-	var user *models.DBResponse
+func (us *UserServiceImpl) FindUserByEmail(email string) (*models.DBUserResponse, error) {
+	var user *models.DBUserResponse
 
 	query := bson.M{"email": strings.ToLower(email)}
 	log.Warnf("find user %s ", email)
@@ -52,7 +52,7 @@ func (us *UserServiceImpl) FindUserByEmail(email string) (*models.DBResponse, er
 
 	if err != nil {
 		if err == mongo.ErrNoDocuments {
-			return &models.DBResponse{}, err
+			return &models.DBUserResponse{}, err
 		}
 		return nil, err
 	}
@@ -60,10 +60,10 @@ func (us *UserServiceImpl) FindUserByEmail(email string) (*models.DBResponse, er
 	return user, nil
 }
 
-func (uc *UserServiceImpl) UpdateUserById(id string, data *models.UpdateInput) (*models.DBResponse, error) {
+func (uc *UserServiceImpl) UpdateUserById(id string, data *models.UpdateInput) (*models.DBUserResponse, error) {
 	doc, err := utils.ToDoc(data)
 	if err != nil {
-		return &models.DBResponse{}, err
+		return &models.DBUserResponse{}, err
 	}
 
 	fmt.Println(data)
@@ -74,7 +74,7 @@ func (uc *UserServiceImpl) UpdateUserById(id string, data *models.UpdateInput) (
 	update := bson.D{{Key: "$set", Value: doc}}
 	result := uc.mongoStorage.UserCollection().FindOneAndUpdate(uc.ctx, query, update, options.FindOneAndUpdate().SetReturnDocument(1))
 
-	var updatedUser *models.DBResponse
+	var updatedUser *models.DBUserResponse
 	if err := result.Decode(&updatedUser); err != nil {
 		return nil, errors.New("no document with that id exists")
 	}

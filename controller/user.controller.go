@@ -18,7 +18,8 @@ func NewUserController(userService service.UserService) UserController {
 }
 
 func (uc *UserController) GetMe(ctx *gin.Context) {
-	currentUser := ctx.MustGet("currentUser").(*models.DBResponse)
+	// prev = middleware.DeserializeUser
+	currentUser := ctx.MustGet("currentUser").(*models.DBUserResponse)
 
 	ctx.JSON(http.StatusOK, gin.H{"status": "success", "data": gin.H{"user": models.FilteredResponse(currentUser)}})
 }

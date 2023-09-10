@@ -198,6 +198,7 @@ func (ac *AuthController) VerifyEmail(ctx *gin.Context) {
 	code := ctx.Params.ByName("verificationCode")
 	verificationCode := utils.Encode(code)
 
+	// TODO - to service layer
 	query := bson.D{{Key: "verificationCode", Value: verificationCode}}
 	update := bson.D{{Key: "$set", Value: bson.D{{Key: "verified", Value: true}}}, {Key: "$unset", Value: bson.D{{Key: "verificationCode", Value: ""}}}}
 	result, err := ac.storage.UserCollection().UpdateOne(ac.ctx, query, update)

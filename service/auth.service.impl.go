@@ -26,7 +26,7 @@ func NewAuthService(storage *storage.MongoStorage, ctx context.Context, config *
 	return &AuthServiceImpl{storage, ctx, config}
 }
 
-func (uc *AuthServiceImpl) SignUpUser(user *models.SignUpInput) (*models.DBResponse, error) {
+func (uc *AuthServiceImpl) SignUpUser(user *models.SignUpInput) (*models.DBUserResponse, error) {
 	user.CreatedAt = time.Now()
 	user.UpdatedAt = user.CreatedAt
 	user.LastAttemptAt = user.CreatedAt
@@ -56,7 +56,7 @@ func (uc *AuthServiceImpl) SignUpUser(user *models.SignUpInput) (*models.DBRespo
 		return nil, errors.New("could not create index for email")
 	}
 
-	var newUser *models.DBResponse
+	var newUser *models.DBUserResponse
 	query := bson.M{"_id": res.InsertedID}
 
 	err = uc.mongoStorage.UserCollection().FindOne(uc.ctx, query).Decode(&newUser)
@@ -67,6 +67,6 @@ func (uc *AuthServiceImpl) SignUpUser(user *models.SignUpInput) (*models.DBRespo
 	return newUser, nil
 }
 
-func (uc *AuthServiceImpl) SignInUser(*models.SignInInput) (*models.DBResponse, error) {
+func (uc *AuthServiceImpl) SignInUser(*models.SignInInput) (*models.DBUserResponse, error) {
 	return nil, nil
 }

@@ -51,7 +51,7 @@ func ParseTemplateDir(dir string) (*template.Template, error) {
 }
 
 // TODO -> another service
-func SendEmail(user *models.DBResponse, data *EmailData, templateName string, config config.Config) error {
+func SendEmail(user *models.DBUserResponse, data *EmailData, templateName string, config config.Config) error {
 	// Sender data.
 	from := config.EmailFrom
 	smtpPass := config.SMTPPass
